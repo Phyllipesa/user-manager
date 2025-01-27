@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+
 import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -22,11 +24,17 @@ export class LoginComponent {
   onLogin() {
     this._loginService.login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe({
-        next: (tokenResponse) => {
-          console.log('Token', tokenResponse);
-          this._router.navigate(['user-infos'])
+        next: () => this._router.navigate(['user-infos']),
+        error: (error: HttpErrorResponse) => { 
+          const UNAUTRORIZED_RESPONSE_ERROR = 401;
+
+          if (error.status === UNAUTRORIZED_RESPONSE_ERROR) {
+            this.loginForm.setErrors({ 'invalidCredentials': true });
+          }
+          else {
+            this.loginForm.setErrors({ 'generalCredentialsError': true });
+          }
         },
-        error: () => {}
-      })
+      });
   }
 }
