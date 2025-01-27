@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { USERS_LIST_DB } = require('./utils/users-list.db');
-const { generateTokenOnLogin } = require('./utils/jwt-manager');
+const { generateTokenOnLogin, validateToken } = require('./utils/jwt-manager');
 
 const app = express();
 const PORT = 3000;
@@ -23,6 +23,16 @@ app.post('/login', (req, res) => {
     const userToken = generateTokenOnLogin(username);
 
     return res.json({ token: userToken });
+});
+
+app.post('/validate-token', (req, res) => {
+    const authHeader = req.headers['authorization'];
+    console.log('auth', authHeader);
+    
+    const validToken = validateToken(authHeader);
+    console.log('token:', validToken);
+
+    res.json({ });
 });
 
 app.listen(PORT, () => {
