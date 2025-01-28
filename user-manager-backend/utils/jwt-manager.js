@@ -7,7 +7,7 @@ const generateTokenOnLogin = (username) => {
 };
 
 const validateToken = (token) => {
-    let TOKEN_IS_VALID = false;
+    let TOKEN_IS_VALID = undefined;
 
     try {
 
@@ -15,12 +15,10 @@ const validateToken = (token) => {
             throw new Error("Empty token.");
         }
 
-        jwt.verify(token, SECRET_KEY);
-        
-        TOKEN_IS_VALID = true;
+        TOKEN_IS_VALID = jwt.verify(token, SECRET_KEY);
     } 
     catch (error) {
-        TOKEN_IS_VALID = false;
+        TOKEN_IS_VALID = undefined;
     }
 
     return TOKEN_IS_VALID;
