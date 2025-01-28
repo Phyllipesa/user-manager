@@ -22,10 +22,10 @@ export class UserInfosComponent {
   updateUser() {
     this._updateUserService.updateUser(this.userInfosForm.value as any).subscribe({
       next: (response) => {
-        console.log('dados atualizados');
+        this.userInfosForm.setErrors({ 'update-success': true })
       },
       error: (error) => {
-        console.log(error);
+        this.userInfosForm.setErrors({ 'update-error': true })
       },
     });
   }
