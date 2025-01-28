@@ -55,7 +55,11 @@
             </div> -->
             <div class="user-infos__buttons-container">
                 <button type="button" class="poppins-regular user-infos__send-button user-infos__send-button--create">Criar Usuário</button>
-                <button type="button" class="poppins-regular user-infos__send-button user-infos__send-button--update">Atualizar Existente</button>
+                <button
+                    type="button"
+                    class="poppins-regular user-infos__send-button user-infos__send-button--update"
+                    (click)="updateUser()"
+                >Atualizar Existente</button>
             </div>
         </form>
     </div>
