@@ -1,5 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { IUserRequest } from '../interfaces/request/user-request.interface';
+import { ICreateUserResponse } from '../interfaces/response/create-user-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +10,10 @@ import { inject, Injectable } from '@angular/core';
 export class CreateUserService {
   private readonly _httpClient = inject(HttpClient);
 
-  createUser(newUser: { name: string; email: string; username: string; password: string; }) {
+  createUser(newUser: IUserRequest) {
     const headers = new HttpHeaders().set('authorization', localStorage.getItem('token')!);
     
-    return this._httpClient.post<{ message: string; }>(
+    return this._httpClient.post<ICreateUserResponse>(
       'http://localhost:3000/create-user',
       newUser,
       { headers, }
