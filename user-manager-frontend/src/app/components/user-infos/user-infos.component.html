@@ -63,12 +63,27 @@
                     @if (userInfosForm.hasError('update-error')) {
                         <p class="poppins-semibold user-infos__alert-message--error">Erro ao atualizar informações.</p>
                     }
-                }
 
+                    @if (userInfosForm.hasError('create-user-success')) {
+                        <p class="poppins-semibold user-infos__alert-message--success">Usuário cadastrado com sucesso.</p>
+                    }
+
+                    @if (userInfosForm.hasError('existing-user-error')) {
+                        <p class="poppins-semibold user-infos__alert-message--error">Usuário já cadastrado.</p>
+                    }
+
+                    @if (userInfosForm.hasError('created-user-error')) {
+                        <p class="poppins-semibold user-infos__alert-message--error">Erro ao cadastrar usuário.</p>
+                    }
+                }
             </div>
 
             <div class="user-infos__buttons-container">
-                <button type="button" class="poppins-regular user-infos__send-button user-infos__send-button--create">Criar Usuário</button>
+                <button
+                    type="button"
+                    class="poppins-regular user-infos__send-button user-infos__send-button--create"
+                    (click)="createUser()"
+                >Criar Usuário</button>
                 <button
                     type="button"
                     class="poppins-regular user-infos__send-button user-infos__send-button--update"
