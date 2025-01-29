@@ -18,7 +18,7 @@ export class UpdateUserService {
       headers,
     }).pipe(
       map((updateUserResponse) => {
-        localStorage.setItem('name', updateUserResponse.token);
+        localStorage.setItem('token', 'Bearer ' + updateUserResponse.token);
         return updateUserResponse;
       })
     );
