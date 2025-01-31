@@ -29,7 +29,14 @@ export class UserInfosComponent {
       next: (response) => {
         this.userInfosForm.setErrors({ 'update-success': true })
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
+        const TOKEN_NOT_FOUND = error.message === 'Token not found.';
+
+        if (TOKEN_NOT_FOUND) {
+          this.userInfosForm.setErrors({ 'token-not-found': true })
+          return;
+        }
+        
         this.userInfosForm.setErrors({ 'update-error': true })
       },
     });
@@ -42,12 +49,18 @@ export class UserInfosComponent {
       },
       error: (error: HttpErrorResponse) => {
         const ALREADY_EXISTING_USER = error.status === 409;
+        const TOKEN_NOT_FOUND = error.message === 'Token not found.';
 
         if (ALREADY_EXISTING_USER) {
           this.userInfosForm.setErrors({ 'existing-user-error': true })
           return;
         }
-        
+
+        if (TOKEN_NOT_FOUND) {
+          this.userInfosForm.setErrors({ 'token-not-found': true })
+          return;
+        }
+
         this.userInfosForm.setErrors({ 'created-user-error': true })
       },
     });
