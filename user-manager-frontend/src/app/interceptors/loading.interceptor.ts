@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { finalize, Observable } from 'rxjs';
+import { finalize, Observable, retry } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
 import { inject } from '@angular/core';
 
@@ -20,6 +20,7 @@ export const loadingInterceptor: HttpInterceptorFn = (
   loadingService.showLoading();
 
   return next(req).pipe(
+    retry(1), // Numero de tentativas de requisições
     finalize(() => {
       loadingService.hideLoading();
     })
