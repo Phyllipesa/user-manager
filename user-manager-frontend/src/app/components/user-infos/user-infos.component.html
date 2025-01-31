@@ -75,6 +75,11 @@
                     @if (userInfosForm.hasError('created-user-error')) {
                         <p class="poppins-semibold user-infos__alert-message--error">Erro ao cadastrar usuário.</p>
                     }
+
+                    @if(userInfosForm.hasError('token-not-found')) {
+                        <p class="poppins-semibold user-infos__alert-message--error">Você precisa estar autenticado para realizar esta ação.</p>
+                        <p class="poppins-semibold user-infos__alert-message--error">Faça login e tente novamente.</p>
+                    }
                 }
             </div>
 
